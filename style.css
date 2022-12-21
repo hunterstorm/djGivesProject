@@ -43,7 +43,8 @@ input:hover{
     align-self:center;
 }
 .currentEvent{
-    width:75%;
+    border-radius:15px;
+    width:55%;
     align-self:center;
     padding-bottom:85px;
 }
@@ -57,7 +58,7 @@ h1{
     align-self:center;
     padding-top:30px;
     padding-bottom:30px;
-    font-size:300%;
+    font-size:250%;
 }
 p{
     font-size:200%;
@@ -65,5 +66,30 @@ p{
     padding-bottom:80px;
     width:65%;
     align-self: center;
+}
+
+.contactPhoto{
+    /* display:flex; */
+    width:25%;
+    /* align-self:flex-start; */
+    margin-bottom:8%;
+    margin-left:8%;
+    border-radius:50%;
+}
+.contactInfo{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+
+}
+.informationList{
+    font-size:150%;
+    list-style-type: none;
+    display:flex;
+    flex-direction:column;
+
+    gap:8%;
+    
+    
 }
 
