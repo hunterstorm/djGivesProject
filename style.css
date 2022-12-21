@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
+
+*{
+    font-family: 'Raleway', sans-serif;
+    
+}
+body{
+    background-color:#01692B;
+    
+}
+hr{
+    padding-bottom: 8%;
+    width:50%;
+    margin:auto;
+}
+.navbar-brand{
+    width:150px;
+}
+.parentDiv{
+    border-radius:15px;
+    display:flex;
+    flex-direction:column;
+    background-color: white;
+    width:85%;
+    margin:auto;
+
+  
+    
+}
+input{
+    border-radius:15px;
+    background-color: #01692B;
+    color:white;
+    border:none;
+}
+input:hover{
+    background-color:#003415;
+    transition-duration: 0.4s;
+}
+
+.frontPageLogo{
+    width: 50%;
+    align-self:center;
+}
+.currentEvent{
+    width:75%;
+    align-self:center;
+    padding-bottom:85px;
+}
+.ticketBtn{
+    align-self:center;
+    border-radius: 30%;
+    font-size: 150%;
+    padding-bottom: 125px;
+}
+h1{
+    align-self:center;
+    padding-top:30px;
+    padding-bottom:30px;
+    font-size:300%;
+}
+p{
+    font-size:200%;
+    text-align:center;
+    padding-bottom:80px;
+    width:65%;
+    align-self: center;
+}
+
