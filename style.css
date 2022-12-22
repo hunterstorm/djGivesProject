@@ -10,8 +10,11 @@ body{
 }
 hr{
     padding-bottom: 8%;
+    border-bottom: 10px;
     width:50%;
     margin:auto;
+    border-top: 10px solid #01692B;
+    
 }
 .navbar-brand{
     width:150px;
@@ -52,18 +55,18 @@ input:hover{
     align-self:center;
     border-radius: 30%;
     font-size: 150%;
-    padding-bottom: 125px;
+    padding-bottom: 8%;
 }
 h1{
     align-self:center;
     padding-top:30px;
-    padding-bottom:30px;
+    padding-bottom:2%;
     font-size:250%;
 }
 p{
     font-size:200%;
     text-align:center;
-    padding-bottom:80px;
+    padding-bottom:8%;
     width:65%;
     align-self: center;
 }
@@ -87,8 +90,8 @@ p{
     list-style-type: none;
     display:flex;
     flex-direction:column;
-
-    gap:8%;
+    gap:5%;
+    padding-bottom:8%;
     
     
 }
