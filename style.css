@@ -95,4 +95,8 @@ p{
     
     
 }
+.form-floating{
+    display:flex;
+    align-self:center;
+}
 
