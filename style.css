@@ -73,7 +73,8 @@ p{
 
 .contactPhoto{
     /* display:flex; */
-    width:25%;
+    width:200px;
+    height: 200px;
     /* align-self:flex-start; */
     margin-bottom:8%;
     margin-left:8%;
@@ -83,6 +84,7 @@ p{
     display:flex;
     flex-direction:row;
     justify-content:space-evenly;
+    font-size:80%;
 
 }
 .informationList{
