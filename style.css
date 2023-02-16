@@ -12,12 +12,12 @@ body{
     
 }
 hr{
-    
-    padding-bottom: 8%;
     border-bottom: 10px;
     width:50%;
     margin:auto;
+    margin-bottom:12px;
     border-top: 10px solid #01692B;
+
     
 }
 .navbar-brand{
@@ -32,6 +32,7 @@ hr{
     width:85%;
     margin:auto;
     padding-top: 10px;
+    padding-bottom:20px;
 
   
     
@@ -115,9 +116,13 @@ min-height: 55px;
 .eventRow{
     display:flex;
     flex-direction:column;
-    padding-top:45px;
- 
-    
+    padding-top:25px; 
+}
+.eventDiv{
+    display:flex;
+    flex-direction:column;
+    padding-top:15px;
+    padding-bottom:25px; 
 }
 
 #eventTitle{

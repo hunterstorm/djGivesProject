@@ -106,6 +106,7 @@ Donation.belongsTo(Event, {
 
 
 
+// app.use('/', req,res)
 
 
 app.get('/Donations',(req,res)=>{
