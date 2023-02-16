@@ -13,6 +13,7 @@ function removeDivs(a,b,c,d){
     if(d){
         d.style.display= 'none';
     }
+}
 
 function cForm(){
     let form = document.createElement("form");
