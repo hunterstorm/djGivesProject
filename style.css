@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400&display=swap');
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
 
 *{
     font-family: 'Raleway', sans-serif;
@@ -15,7 +16,7 @@ hr{
     border-bottom: 10px;
     width:50%;
     margin:auto;
-    margin-bottom:12px;
+    /* margin-bottom:12px; */
     border-top: 10px solid #01692B;
 
     
@@ -32,7 +33,7 @@ hr{
     width:85%;
     margin:auto;
     padding-top: 10px;
-    padding-bottom:20px;
+    padding-bottom:25px;
 
   
     
@@ -57,14 +58,14 @@ input:hover{
     font-size:150%;
     padding:10px;
 
-    background-color:#6bae86;
-    border-width:3px;
+    background-color:white;
+    border:none;
     border-color:#01692B;
     color:#01692B;
 
 }
 .material-symbols-outlined {
-max-width: 95px;
+max-width: 55px;
 min-height: 55px;
 
   font-variation-settings:
@@ -80,10 +81,8 @@ min-height: 55px;
 }
 .eventBtn.hover{
 
-    border-width:3px;
-    border-color:#6bae86;
-    color:#6bae86;
-    background-color:#01692B;
+    color:#86d3a5;
+    background-color:#86d3a5;
     border-radius:15px;
     transition-duration: 0.4s; 
 }
@@ -103,8 +102,9 @@ min-height: 55px;
 }
 .formContainer{
     display: flex;
-    flex-flow: row wrap;
+    flex-flow:row wrap;
     justify-content:center;
+   
     background-color: white;
     color:#7fc49b;
     border-color:#6bae86;
@@ -116,13 +116,13 @@ min-height: 55px;
 .eventRow{
     display:flex;
     flex-direction:column;
-    padding-top:25px; 
+    padding-top:45px; 
 }
 .eventDiv{
     display:flex;
     flex-direction:column;
-    padding-top:15px;
-    padding-bottom:25px; 
+    padding-top:45px;
+    padding-bottom:45px; 
 }
 
 #eventTitle{
@@ -265,12 +265,46 @@ p{
     text-align: center;
     column-gap:5px;
     row-gap: 15px;
+    /* background-color: white; */ 
+    /* margin: 10px 10px 10px 10px; */
 }
 .eBContainer{
 display:flex;
 flex-flow:row nowrap;
 column-gap:2px;
 margin:auto; 
+}
+
+
+
+.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  margin: 5px 0;
+  padding: 10px;
+  margin-bottom: 25px;
+  margin-top:25px;
+  height:55px;
+  text-align: center;
+  /* font-size:80%; */
+  border-radius: 3px 3px 3px 3px;
+}
+.info-msg {
+  color: #059;
+  background-color: #BEF;
+}
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+}
+.warning-msg {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.error-msg {
+  color: #D8000C;
+  background-color: #FFBABA;
 }
 
 

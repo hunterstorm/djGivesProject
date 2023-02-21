@@ -15,6 +15,59 @@ function removeDivs(a,b,c,d){
     }
 }
 
+function lessTheOpacity(box){
+    var oppArray = ["0.9", "0.8", "0.7", "0.6", "0.5", "0.4", "0.3", "0.2", "0.1", "0"];
+    var x = 0;
+    (function next() {
+        box.style.opacity = oppArray[x];
+        if(++x < oppArray.length) {
+            setTimeout(next, 250); //depending on how fast you want to fade
+        }
+        if(oppArray[x]=="0"){
+            box.style.display= 'none';
+        }
+    })();
+}
+function successMessage(div){
+    // let container=document.getElementById(div);
+    let success=document.createElement("div");
+    let check=document.createElement("p");
+    let messageContainer=document.createElement('div');
+    messageContainer.id="messageContainer";
+    success.className="success-msg";
+    check.className="fa fa-check";
+
+    if (div.id=="cFormContainer"){
+        check.innerText=" Event Added Successfully";
+    }
+    if (div.id=="vContainer"){
+        check.innerText=" Event Deleted Successfully";
+    }
+
+    success.appendChild(check);
+    messageContainer.appendChild(success);
+    div.appendChild(messageContainer);
+    lessTheOpacity(messageContainer);
+
+}
+
+function errorMessage(div){
+
+    let err=document.createElement("div");
+    let x=document.createElement("p");
+    let messageContainer=document.createElement('div');
+    messageContainer.id="messageContainer";
+    err.className="error-msg";
+    x.className="fa fa-times-circle";
+    x.innerText="Failed to Create Event";
+    err.appendChild(x);
+    messageContainer.appendChild(err);
+    div.appendChild(messageContainer);
+    lessTheOpacity(messageContainer);
+
+}
+
+
 function cForm(){
     let form = document.createElement("form");
     form.className="cForm";
@@ -98,7 +151,6 @@ function cForm(){
     // eventImage.setAttribute("name","eventImage");
     // eventLink.setAttribute("placeholder","Add an Image");
 
-    
 
     let s = document.createElement("input");
     s.id="s";
@@ -148,12 +200,6 @@ function cForm(){
       saveSubmitBtn()
     })
 
-    // if(form){
-    //     form.addEventListener("submit", function(e){
-    //         submitForm(e, this);
-    //     })
-    // }
-
     let vBtn = document.getElementById("vEventBtn");
     vBtn.addEventListener('click',()=>{
         removeDivs(form,s,newEvent,d);
@@ -193,7 +239,7 @@ function saveSubmitBtn(){
         method:'POST',
         headers:    {
             'Content-Type': 'application/json'
-    },
+        },
         body: JSON.stringify({
             eventTitle:eventTitle,
             eventAddress:eventAddress,
@@ -205,31 +251,68 @@ function saveSubmitBtn(){
             eventLink:eventLink,
             eventCost:eventCost
         }) 
-      })
+    })
+    .then(response =>{
+        if(response.ok){
+            
+            successMessage(cFormContainer);
+            console.log("Event Kept");
+        }
+        else{
+            errorMessage(cFormContainer);
+            console.log("Event Failed to Submit");
+        }
+    })
+    .catch(error =>{
+        console.error("Error saving Event", error);
+    });
+}
 
-        .then(response =>{
-                if(response.ok){
-                    console.log("Event Kept");
-                }
-                else{
-                    console.log("Event Failed to Submit");
-                }
-            })
-            .catch(error =>{
-                console.error("Error saving Event", error);
-            });
-      }
+function delEvent(id,div){
+    fetch('http://localhost:3000/events/'+ id,{
+        method:'DELETE'
+    })
+    .then(response =>{
+        if(response.ok){
+            successMessage(div);
+            console.log("Event Deleted");
+        }
+        else{
+            console.log("Event Failed to Delete");
+        }
+    })
+    .catch(error =>{
+        console.error("Error Deleting Event", error);
+    })
+}
 
-
-
+// function updateEvent(eventInfo){
+//     fetch('http://localhost:3000/events',{
+//         method:'PUT',
+//         headers:    {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             eventTitle:eventTitle,
+//             eventAddress:eventAddress,
+//             eventCity:eventCity,
+//             eventState:eventState,
+//             eventStartTime:eventStartTime,
+//             eventEndTime:eventEndTime,
+//             eventDate:eventDate,
+//             eventLink:eventLink,
+//             eventCost:eventCost
+//         })
+//     })
+// }
 
 function vForm(){
     fetch('http://localhost:3000/events')
         .then((r) => r.json())
         .then((response) => {
-        showEventData(response)
-        console.log(response)
-    }).catch(err => console.error(err));
+            showEventData(response)
+            console.log(response);
+        }).catch(err => console.error(err));
 }
 
 function showEventData(jsonFormatResponse){
@@ -245,6 +328,9 @@ function showEventData(jsonFormatResponse){
         const streetColumn = document.createElement("span");
         const cityStateColumn = document.createElement("span");
         const dateColumn = document.createElement("span");
+        const timeColumn = document.createElement("span");
+        
+        timeColumn.innerText= eventInfo.eventStartTime + " - "+eventInfo.eventEndTime;
         nameColumn.innerText = eventInfo.eventTitle;
         costColumn.innerText = "$"+eventInfo.eventCost;
         streetColumn.innerText = eventInfo.eventAddress;
@@ -267,16 +353,31 @@ function showEventData(jsonFormatResponse){
         r.setAttribute("type","span");
         r.setAttribute("value","delete");
 
+        const id=jsonFormatResponse[i].eventId;
+
         eventRow.appendChild(nameColumn);
         eventRow.appendChild(costColumn);
         eventRow.appendChild(streetColumn);
         eventRow.appendChild(cityStateColumn);
         eventRow.appendChild(dateColumn);
+        eventRow.appendChild(timeColumn);
         viewContainerDiv.appendChild(eventRow);
-
         eventBtnContainer.appendChild(u);
         eventBtnContainer.appendChild(r);
         viewContainerDiv.appendChild(eventBtnContainer);
+
+        r.addEventListener("click", ()=>{
+            const result = confirm("This will delete "+eventInfo.eventTitle+" permanently");
+            if (result) {
+                delEvent(id,viewContainerDiv);
+                viewContainerDiv.removeChild(eventRow);
+                viewContainerDiv.removeChild(eventBtnContainer);
+            }
+        })
+
+        u.addEventListener("click", ()=>{
+            updateEvent(jsonFormatResponse[i]);
+        })
 
 
   

@@ -1,10 +1,14 @@
 const http = require('http');
 const express = require('express');
 const cors = require('cors');
+// const session = require('express-session');
+// const flash = require('connect-flash');
 const app = express();
 app.use(express.json());
 app.use(cors());
 const { Sequelize,DataTypes } = require('sequelize');
+const {check,validationResult}=require('express-validator');
+
 
 const sequelizeConnection = new
 Sequelize('postgres://postgres:mtndew@localhost:5432/postgres',{
@@ -106,7 +110,13 @@ Donation.belongsTo(Event, {
 
 
 
-// app.use('/', req,res)
+// app.use(session({
+//     // secret:'flashblog',
+//     saveUninitialized: true,
+//     resave: true
+// }));
+  
+// app.use(flash());
 
 
 app.get('/Donations',(req,res)=>{
@@ -134,15 +144,33 @@ app.post('/Donations',(req,res)=>{
         donationId:donationData.donationId,donationSender:donationData.donationSender,senderEmail:donationData.senderEmail,donationAmount:donationData.donationAmount,eventId:donationData.eventId
     })
     res.status(201).send("Donation created successfully");
+    // req.flash('message', 'Donation created successfully');
 })
 
-app.post('/Events',(req,res)=>{
-    const eventData = req.body;
-    Event.create({
-        eventId:eventData.eventId,eventTitle:eventData.eventTitle,eventCost:eventData.eventCost,eventLink:eventData.eventLink,eventImage:eventData.eventImage,eventAddress:eventData.eventAddress,eventCity:eventData.eventCity,eventState:eventData.eventState,eventCountry:eventData.eventCountry,eventDate:eventData.eventDate,eventStartTime:eventData.eventStartTime,eventEndTime:eventData.eventEndTime,eventDesc:eventData.eventDesc
+app.post('/Events', [
+    check('eventTitle','eventTitle cannot be empty').isLength({min:1}),
+    check('eventAddress','eventAddress cannot be empty').isLength({min:1}),
+    check('eventCity','eventCity cannot be empty').isLength({min:1}),
+    check('eventState','eventState cannot be empty').isLength({min:1}),
+    check('eventStartTime','eventStartTime cannot be empty').isLength({min:1}),
+    check('eventEndTime','eventEndTime cannot be empty').isLength({min:1}),
+    check('eventCost','eventCost cannot be empty').isLength({min:1}),
+    check('eventDate','eventDate cannot be empty').isLength({min:1}),
+    check('eventLink','eventLink cannot be empty').isLength({min:1})
+],(req,res)=>{
+    const errors = validationResult(req).array();
+    if(errors.length>0){
+        res.status(400).send("All inputs are required");
+    }else{
+        const eventData = req.body;
+        Event.create({
+            eventId:eventData.eventId,eventTitle:eventData.eventTitle,eventCost:eventData.eventCost,eventLink:eventData.eventLink,eventImage:eventData.eventImage,eventAddress:eventData.eventAddress,eventCity:eventData.eventCity,eventState:eventData.eventState,eventCountry:eventData.eventCountry,eventDate:eventData.eventDate,eventStartTime:eventData.eventStartTime,eventEndTime:eventData.eventEndTime,eventDesc:eventData.eventDesc
         })
-    res.status(201).send("Event created successfully");
+        res.status(201).send("Event created successfully");
+        // res.send(req.flash('message'));
+    }
 })
+
 
 app.put('/Events/:eventId', (req,res)=>{
     const eId = req.params['eventId'];
